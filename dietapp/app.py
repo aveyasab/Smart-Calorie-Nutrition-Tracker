@@ -24,7 +24,7 @@ def page_data_pengguna():
     st.title("👤 Data Pengguna")
 
     nama = st.text_input("Nama")
-    umur = st.number_input("Umur", min_value=1, max_value=100)
+    umur = st.number_input("Umur", min_value=0, max_value=100)
     jk = st.selectbox("Jenis Kelamin", ["Pilih", "Laki-laki", "Perempuan"])
 
     if st.button("Simpan & Lanjut ➡"):
@@ -141,7 +141,23 @@ def page_analisis_gizi():
         st.warning("Gula alami masih kurang")
         st.image("https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg")
 
-    st.subheader("🌈 Grafik Asupan Gizi (Berwarna)")
+    # ================== APRESIASI ==================
+    if (
+        total["protein"] >= 50 and
+        total["karbo"] >= 225 and
+        total["lemak"] >= 60 and
+        total["serat"] >= 25 and
+        total["gula"] >= 25
+    ):
+        st.success("🎉 Luar biasa! Asupan gizi harian kamu hari ini sudah TERPENUHI dengan baik!")
+        st.balloons()
+        st.markdown("""
+        💚 **Kerja bagus!**  
+        Kamu sudah menjaga keseimbangan nutrisi dengan sangat baik hari ini.  
+        Pertahankan pola makan sehat ini untuk energi, fokus, dan kesehatan jangka panjang 🚀🥗
+        """)
+
+    st.subheader("🌈 Grafik Asupan Gizi")
 
     df = pd.DataFrame({
         "Nutrisi": ["Protein", "Karbohidrat", "Lemak", "Serat", "Gula"],
